@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class ParkourPlayerEffectLayer {
+public class ParkourPlayerActionManager {
 
     public void playerStepOnStartPressurePlate(Player player, ParkourMap parkourMap, Location loc) {
         if (Parkour.getParkourRunInstance(player) == null) {

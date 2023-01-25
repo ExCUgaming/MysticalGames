@@ -1,13 +1,13 @@
 package com.mysticalsurvival.games.commands.parkour;
 
-import com.mysticalsurvival.games.effects.ParkourPlayerEffectLayer;
+import com.mysticalsurvival.games.effects.ParkourPlayerActionManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ParkourCommands implements CommandExecutor {
-    ParkourPlayerEffectLayer playerEffectLayer = new ParkourPlayerEffectLayer();
+    ParkourPlayerActionManager playerEffectLayer = new ParkourPlayerActionManager();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

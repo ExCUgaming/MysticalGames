@@ -2,7 +2,7 @@ package com.mysticalsurvival.games.core.parkour;
 
 import com.mysticalsurvival.games.Games;
 import com.mysticalsurvival.games.core.GamePlayer;
-import com.mysticalsurvival.games.effects.ParkourPlayerEffectLayer;
+import com.mysticalsurvival.games.effects.ParkourPlayerActionManager;
 import com.mysticalsurvival.games.util.PlayerStatistics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ public class ParkourRun extends Parkour {
     private final BigDecimal up = new BigDecimal("0.05");
     private short reachedCheckpoint = 0;
 
-    private final ParkourPlayerEffectLayer effectLayer = new ParkourPlayerEffectLayer();
+    private final ParkourPlayerActionManager effectLayer = new ParkourPlayerActionManager();
 
     /**
      *

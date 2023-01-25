@@ -3,7 +3,7 @@ package com.mysticalsurvival.games.listeners.parkour;
 import com.mysticalsurvival.games.core.parkour.Checkpoint;
 import com.mysticalsurvival.games.core.parkour.Parkour;
 import com.mysticalsurvival.games.core.parkour.ParkourMap;
-import com.mysticalsurvival.games.effects.ParkourPlayerEffectLayer;
+import com.mysticalsurvival.games.effects.ParkourPlayerActionManager;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +14,7 @@ public class PressurePlateListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
-        ParkourPlayerEffectLayer playerEffectLayer = new ParkourPlayerEffectLayer();
+        ParkourPlayerActionManager playerEffectLayer = new ParkourPlayerActionManager();
 
 
         if (e.getClickedBlock() != null) {

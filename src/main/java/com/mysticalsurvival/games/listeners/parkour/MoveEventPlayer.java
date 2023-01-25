@@ -1,13 +1,13 @@
 package com.mysticalsurvival.games.listeners.parkour;
 
 import com.mysticalsurvival.games.core.parkour.Parkour;
-import com.mysticalsurvival.games.effects.ParkourPlayerEffectLayer;
+import com.mysticalsurvival.games.effects.ParkourPlayerActionManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class MoveEventPlayer implements Listener {
-    ParkourPlayerEffectLayer playerEffectLayer = new ParkourPlayerEffectLayer();
+    ParkourPlayerActionManager playerEffectLayer = new ParkourPlayerActionManager();
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
