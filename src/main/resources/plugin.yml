@@ -1,0 +1,14 @@
+name: MysticalGames
+version: '${project.version}'
+main: com.mysticalsurvival.games.Games
+api-version: 1.19
+authors: [ Excu, OPCoder ]
+description: Games for MysticalSurvival
+commands:
+  parkouradmin:
+    aliases: [ pa ]
+  leaveparkour:
+    aliases: [ cancelparkour ]
+  parkours:
+  mysticalgames:
+    aliases: [ mg ]

@@ -1,0 +1,107 @@
+# MysticalGames Messages Configuration (v1.1)
+# Please only use Bukkit Color Codes
+# Placeholders:
+# <player>, <playerdisplay>, <map>, <ckid>, <label>, and <time>.
+# Commands can only use first 5 placeholders, and <label> is only for commands.
+# The <time> placeholder is only used for messages that deal with time in the "player" category. See below for details.
+games:
+  parkour:
+    admin:
+      command-create:
+        invalid-difficulty: '&cError: Difficulty not recognised.'
+        success: '&aCreated parkour map <map>.'
+      command-delete:
+        not-found: '&cError: That parkour does not exist.'
+        success: '&aSuccessfully deleted parkour map <map>.'
+      command-setstart:
+        not-found: '&cError: That parkour does not exist.'
+        success: '&aSuccessfully set the start location for <map>.'
+      command-setend:
+        not-found: '&cError: That parkour does not exist.'
+        success: '&aSuccessfully set the end location for <map>.'
+      command-setspawn:
+        not-found: '&cError: That parkour does not exist.'
+        success: '&aSuccessfully set the spawn location for <map>.'
+      command-setdeathy:
+        not-found: '&cError: That parkour does not exist.'
+        parse-fail: '&cError: Failed to parse short.'
+        success: '&aSuccessfully set the death Y-level.'
+      command-goto:
+        not-found: '&cError: That parkour does not exist.'
+        no-spawn: '&cError: That parkour does not have a set spawn.'
+        success: '&aYou teleported to <map>.'
+      command-addcheckpoint:
+        not-found: '&cError: That parkour does not exist.'
+        parse-fail: '&cError: Failed to parse short.'
+        creation-fail: '&cError: Failed to create checkpoint.'
+        success: '&aSuccessfully added checkpoint <ckid> for parkour <map>.'
+      command-deletecheckpoint:
+        not-found: '&cError: That parkour does not exist.'
+        parse-fail: '&cError: Failed to parse short.'
+        deletion-fail: '&cError: Failed to delete checkpoint.'
+        success: '&aSuccessfully deleted checkpoint <ckid> for parkour <map>.'
+      command-setcheckpointtplocation:
+        not-found: '&cError: That parkour does not exist.'
+        parse-fail: '&cError: Failed to parse short.'
+        success: '&aSuccessfully set the teleport location of checkpoint <ckid> for parkour <map>.'
+      command-listcheckpoints:
+        not-found: '&cError: That parkour does not exist.'
+      command-setlobby:
+        success: '&aSuccessfully set the lobby for all parkour maps.'
+      command-usage:
+        # MUST be list
+        # Lists can only use placeholders <player>, <playerdisplay>, and <label>.
+        - '&cInvalid usage! Usage:'
+        - '&e/<label> list'
+        - '&e/<label> create <parkourName> <easy|normal|hard>'
+        - '&e/<label> delete <parkourName>'
+        - '&e/<label> setstart <parkourName>'
+        - '&e/<label> setend <parkourName>'
+        - '&e/<label> setspawn <parkourName>'
+        - '&e/<label> setdeathy <parkourName> <deathY>'
+        - '&e/<label> goto <parkourName>'
+        - '&e/<label> setlobby'
+        - '&e/<label> addcheckpoint <parkourName> <id>'
+        - '&e/<label> deletecheckpoint <parkourName> <id>'
+        - '&e/<label> listcheckpoints <parkourName>'
+        - '&e/<label> setcheckpointtplocation <parkourName> <id>'
+      command-player: 'You must be a player to do this!' #The <playerdisplay> doesn't work for this.
+      command-permission:
+        no-permission: '&4You cannot run this command.' #The <playerdisplay> doesn't work for this.
+      plate-start:
+        break: '&aSuccessfully destroyed the start pressure plate of parkour <map>.'
+      plate-finish:
+        break: '&aSuccessfully destroyed the end pressure plate of parkour <map>.'
+      plate-checkpoint:
+        break: '&aSuccessfully destroyed checkpoint #<ckid> of parkour <map>.'
+    player:
+      # Use <time> in these to show time, except for death messages, and commands.
+      gui:
+        teleport: '&5You teleported to parkour &d<map>&5.'
+      start:
+        other-parkour: '&cYou are already in another parkour. Use /leaveparkour to leave the parkour.'
+        time-reset: '&5You reset the time.'
+        success: '&5You started the parkour &d<map>&5.'
+      end:
+        other-parkour: '&cThis is not the finish to the parkour you are currently running.'
+        skip: '&cYou need to start the parkour before you finish.'
+        no-checkpoints: '&cYou need to reach all checkpoints before finishing.'
+        success: '&5You finished &d<map> &5with a time of &d<time>&5.'
+        title: '&aYou finished in <time>!'
+        subtitle: ''
+      command-leave:
+        no-parkour: '&cYou cannot leave a parkour because you are not in one.'
+        success: '&5You left the parkour.'
+      time:
+        # Use '§' for color codes in action bar.
+        # Special placeholders for action bar: <minutes> <seconds>
+        action-bar: '§3§L<time>'
+      death:
+        success: '&cYou died.'
+      checkpoint:
+        other-parkour: '&cYou need to start the parkour before reaching checkpoints.'
+        skip: '&cYou need to reach the previous checkpoint first.'
+        reached: '&cYou have already reached this checkpoint.'
+        success: '&5You reached checkpoint #&d<ckid>&5!'
+        title: '&aYou reached checkpoint #<ckid>!'
+        subtitle: ''
