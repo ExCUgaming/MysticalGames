@@ -11,8 +11,6 @@ import com.mysticalsurvival.games.listeners.lobby.GamePlayerListener;
 import com.mysticalsurvival.games.listeners.parkour.*;
 import com.mysticalsurvival.games.util.MessagesConfig;
 import com.mysticalsurvival.games.util.PlayerStatistics;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,7 +23,11 @@ public final class Games extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+
+        //instance thingy
         Games.instance = this;
+
+        //initialization
         Parkour.init();
         PlayerStatistics.init();
         registerCommands();
@@ -38,21 +40,27 @@ public final class Games extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
 
-        System.out.println("sus");
-        for (GamePlayer gp : PlayerStatistics.getGameAllGamePlayers()) {
+        //saves everyone's data
+        for (GamePlayer gp : PlayerStatistics.getAllGamePlayers()) {
             gp.save();
         }
     }
 
     public static File getPluginDataFolder() {
+        //gets datafolder
+
         return Games.getPlugin(Games.class).getDataFolder();
     }
 
     public static Games getInstance() {
+        //instance getter
+
         return Games.instance;
     }
 
     void registerCommands() {
+        //register the cmds
+
         getCommand("parkouradmin").setExecutor(new ParkourAdminCommand());
         getCommand("leaveparkour").setExecutor(new ParkourCommands());
         getCommand("parkours").setExecutor(new LobbyCommands());
@@ -60,7 +68,11 @@ public final class Games extends JavaPlugin {
     }
 
     void registerEvents() {
+        //register events
+
+        //gets pluginManager to clean up code
         PluginManager pm = getServer().getPluginManager();
+
         pm.registerEvents(new PressurePlateListener(), this);
         pm.registerEvents(new ParkourBlocksListener(), this);
         pm.registerEvents(new MoveEventPlayer(), this);

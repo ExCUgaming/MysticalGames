@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 
 public class PlayerStatistics {
@@ -23,11 +23,13 @@ public class PlayerStatistics {
 
     private static Games main = Games.getInstance();
 
-    private static final HashMap<Player, GamePlayer> gamePlayers = new HashMap<>();
+    private static final HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
 
     public static void init() {
+        //makes sure the datafile is there
         dataWriter.makeDataFile(DATAFILE);
 
+        //starts save loop in case of server crashes
         BukkitScheduler scheduler = Bukkit.getScheduler();
         bt = scheduler.runTaskTimer(main, () -> {
 
@@ -41,33 +43,54 @@ public class PlayerStatistics {
     }
 
     public static void registerGamePlayer(GamePlayer gamePlayer) {
+        //registers a GamePlayer
 
-        gamePlayers.put(gamePlayer.getPlayer(), gamePlayer);
+        //puts GamePlayer in a HashMap for easy identification
+        gamePlayers.put(gamePlayer.getPlayer().getUniqueId(), gamePlayer);
+
+        //checks if the player's statistics are null
         if (dataWriter.readConfigSection(DATAFILE, "players."+gamePlayer.getPlayer().getUniqueId()+".parkour.completion") != null) {
+
+            //does something for each key or for each ParkourMap played by the player
             dataWriter.readConfigSection(DATAFILE, "players." + gamePlayer.getPlayer().getUniqueId() + ".parkour.completion").getKeys(false).forEach(key -> {
+
+                //sets the values
                 gamePlayer.setBestParkourMapTime(Parkour.getParkourMapInstance(key), dataWriter.readDouble(DATAFILE, "players." + gamePlayer.getPlayer().getUniqueId() + ".parkour.completion." + key + ".best"), false);
                 gamePlayer.setParkourFinishes(Parkour.getParkourMapInstance(key), dataWriter.readIntData(DATAFILE, "players." + gamePlayer.getPlayer().getUniqueId() + ".parkour.completion." + key + ".comps"), false);
+
             });
+
+            //sets the value for total plays
             gamePlayer.setTotalFinishes(dataWriter.readIntData(DATAFILE, "players." + gamePlayer.getPlayer().getUniqueId() + ".parkour.plays"));
+
         } else {
+
+            //if the player stats are null, it will make a ConfigSection for its states
             dataWriter.writeConfigSection(DATAFILE, "players."+gamePlayer.getPlayer().getUniqueId()+".parkour.completion");
+
         }
     }
 
     public static void unregisterGamePlayer(GamePlayer gamePlayer) {
 
-        gamePlayers.remove(gamePlayer.getPlayer());
+        gamePlayers.remove(gamePlayer.getPlayer().getUniqueId());
         gamePlayer.save();
 
     }
 
     public static GamePlayer getGamePlayer(Player player) {
 
-        return gamePlayers.get(player);
+        return gamePlayers.get(player.getUniqueId());
 
     }
 
-    public static Collection<GamePlayer> getGameAllGamePlayers() {
+    public static GamePlayer getGamePlayer(UUID uuid) {
+
+        return gamePlayers.get(uuid);
+
+    }
+
+    public static Collection<GamePlayer> getAllGamePlayers() {
         return gamePlayers.values();
     }
 

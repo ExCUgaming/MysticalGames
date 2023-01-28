@@ -3,15 +3,17 @@ package com.mysticalsurvival.games.core;
 import com.mysticalsurvival.games.core.parkour.ParkourMap;
 import com.mysticalsurvival.games.util.DataWriter;
 import com.mysticalsurvival.games.util.PlayerStatistics;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class GamePlayer {
 
     DataWriter dw = new DataWriter();
 
-    private final Player player;
+    private final UUID playerUUID;
     private final HashMap<ParkourMap, Double> bestParkourMapTimes = new HashMap<>();
     private final HashMap<ParkourMap, Integer> parkourFinishes = new HashMap<>();
     private int totalFinishes;
@@ -20,7 +22,7 @@ public class GamePlayer {
     private final HashMap<ParkourMap, Integer> newParkourFinishes = new HashMap<>();
 
     public GamePlayer(Player player) {
-        this.player = player;
+        this.playerUUID = player.getUniqueId();
         PlayerStatistics.registerGamePlayer(this);
     }
 
@@ -83,21 +85,21 @@ public class GamePlayer {
     }
 
     public Player getPlayer() {
-        return player;
+        return Bukkit.getPlayer(playerUUID);
     }
 
     public void save() {
 
         // get values from hashmap and write to file
         for (ParkourMap pm : newBestParkourMapTimes.keySet()) {
-            dw.writeObjectData(PlayerStatistics.DATAFILE, "players."+getPlayer().getUniqueId()+".parkour.completion."+pm.getName()+".best", newBestParkourMapTimes.get(pm));
+            dw.writeObjectData(PlayerStatistics.DATAFILE, "players."+playerUUID+".parkour.completion."+pm.getName()+".best", newBestParkourMapTimes.get(pm));
         }
 
         for (ParkourMap pm : newParkourFinishes.keySet()) {
-            dw.writeObjectData(PlayerStatistics.DATAFILE, "players."+getPlayer().getUniqueId()+".parkour.completion."+pm.getName()+".comps", newParkourFinishes.get(pm));
+            dw.writeObjectData(PlayerStatistics.DATAFILE, "players."+playerUUID+".parkour.completion."+pm.getName()+".comps", newParkourFinishes.get(pm));
         }
 
-        dw.writeObjectData(PlayerStatistics.DATAFILE, "players."+getPlayer().getUniqueId()+".parkour.plays", totalFinishes);
+        dw.writeObjectData(PlayerStatistics.DATAFILE, "players."+playerUUID+".parkour.plays", totalFinishes);
 
         // clear all hashmaps
         newBestParkourMapTimes.clear();

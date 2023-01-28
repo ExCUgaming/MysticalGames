@@ -22,14 +22,22 @@ public class ParkourMap extends Parkour {
      *
      * Creates a ParkourMap instance.
      *
-     * @param name1 - The name of the ParkourMap
+     * @param name1 The name of the ParkourMap
      */
     public ParkourMap(String name1, Difficulty df) {
         super();
+
+        //only registers the ParkourMap if the String identifier does not exist.
         if (Parkour.getParkourMapInstance(name1) == null) {
+
+            //sets values
             name = name1;
             difficulty = df;
+
+            //registers
             Parkour.registerParkourMap(this, name1, df);
+
+            //writes yaml config section to save ParkourMap data
             dataWriter.writeConfigSection(Parkour.DATAFILE, "parkours."+name1);
             dataWriter.writeStringData(Parkour.DATAFILE, "parkours."+name1+".difficulty", difficulty.getId());
         }
@@ -37,6 +45,8 @@ public class ParkourMap extends Parkour {
 
     public ParkourMap(String name1, Difficulty df, boolean write) {
         super();
+
+        //only registers the ParkourMap if the String identifier does not exist.
         if (Parkour.getParkourMapInstance(name1) == null) {
             name = name1;
             difficulty = df;
@@ -51,15 +61,15 @@ public class ParkourMap extends Parkour {
      *
      * Sets the y coordinate that the player gets reset at.
      *
-     * @param deathY1 - The y coordinate that the player gets reset at.
+     * @param deathY The y coordinate that the player gets reset at.
      */
-    public void setDeathY(short deathY1) {
-        this.deathY = deathY1;
+    public void setDeathY(short deathY) {
+        this.deathY = deathY;
         dataWriter.writeShortData(Parkour.DATAFILE, "parkours."+name+".deathy", deathY);
     }
 
-    public void setDeathY(short deathY1, boolean write) {
-        this.deathY = deathY1;
+    public void setDeathY(short deathY, boolean write) {
+        this.deathY = deathY;
         if (write) {
             dataWriter.writeShortData(Parkour.DATAFILE, "parkours." + name + ".deathy", deathY);
         }
@@ -69,7 +79,7 @@ public class ParkourMap extends Parkour {
      *
      * Sets the location the player first spawns at when they teleport to the parkour.
      *
-     * @param spawnLocation1 - The location to set.
+     * @param spawnLocation1 The location to set.
      */
     public void setSpawnLocation(Location spawnLocation1) {
         this.spawnLocation = spawnLocation1;

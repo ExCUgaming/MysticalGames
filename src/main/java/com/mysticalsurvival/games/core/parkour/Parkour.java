@@ -21,79 +21,74 @@ public class Parkour extends Game {
     private static final Set<ParkourMap> hardParkours= new HashSet<>();
     private static Location parkourLobbyLoc;
 
-    public static final String completion = "completion";
-    public static final String plays = "plays";
-    private static Parkour instance;
-
     public Parkour() {
         super("parkour");
-        instance = this;
     }
 
     public static void init() {
+
+        //make sure the datafile is made
         dw.makeDataFile(DATAFILE);
+
+        //writes the ConfigSection for parkours
         if (dw.readConfigSection(DATAFILE, "parkours") ==  null) {
             dw.writeConfigSection(DATAFILE, "parkours");
         }
+
+        //gets the location for the parkour lobby spawn
         parkourLobbyLoc = dw.readLocationData(DATAFILE, "lobby");
 
+        //reads keys in key "parkours", each key is a ParkourMap
         dw.readConfigSection(DATAFILE, "parkours").getKeys(false).forEach(key -> {
 
+            //gets the difficulty for the ParkourMap using String identifiers
             String diff = dw.readStringData(DATAFILE, "parkours." + key + ".difficulty");
-            Difficulty df = Difficulty.EASY;
-            switch (diff) {
-                case "normal":
-                    df = Difficulty.NORMAL;
-                    break;
+            Difficulty df = switch (diff) {
+                case "easy" -> Difficulty.EASY;
+                case "normal" -> Difficulty.NORMAL;
+                case "hard" -> Difficulty.HARD;
+            };
 
-                case "hard":
-                    df = Difficulty.HARD;
-                    break;
-            }
+            //creates the parkourmap
             ParkourMap pm = new ParkourMap(key, df, false);
+
+            //sets the locations for the ParkourMap
             pm.setStartLocation(dw.readLocationData(DATAFILE, "parkours."+key+".startloc"), false);
             pm.setEndLocation(dw.readLocationData(DATAFILE, "parkours."+key+".endloc"), false);
             pm.setSpawnLocation(dw.readLocationData(DATAFILE, "parkours."+key+".spawnloc"), false);
             pm.setDeathY(dw.readShortData(Parkour.DATAFILE, "parkours."+key+".deathy"), false);
 
+            //checks to see if the parkour has checkpoints
             if (dw.readConfigSection(DATAFILE, "parkours."+key+".checkpoints") ==  null) {
                 dw.writeConfigSection(DATAFILE, "parkours."+key+".checkpoints");
             }
+
+            //gets checkpoints for the parkour
             dw.readConfigSection(DATAFILE, "parkours."+key+".checkpoints").getKeys(false).forEach(keyc ->
                     pm.createCheckpoint(Short.parseShort(keyc), dw.readLocationData(Parkour.DATAFILE, "parkours."+key+".checkpoints."+keyc+".blockloc"), dw.readLocationData(Parkour.DATAFILE, "parkours."+key+".checkpoints."+keyc+".tploc"),false));
         });
     }
 
-    public static Parkour getInstance() {
-        return instance;
-    }
-
     static void registerParkourMap(ParkourMap pm, String n, Difficulty difficulty) {
+        //registers the ParkourMap
+
+        //stores the ParkourMap instances
         parkourMapInstances.put(n, pm);
+
+        //puts a ParkourMap in a list based on it's difficulty
         switch (difficulty) {
 
-            case EASY -> {
-                easyParkours.add(pm);
-                break;
-            }
+            case EASY -> easyParkours.add(pm);
 
-            case NORMAL -> {
-                normalParkours.add(pm);
-                break;
-            }
+            case NORMAL -> normalParkours.add(pm);
 
-            case HARD -> {
-                hardParkours.add(pm);
-                break;
-            }
-
+            case HARD -> hardParkours.add(pm);
         }
 
     }
 
     static void removeParkourMap(String n, ParkourMap pm) {
         parkourMapInstances.remove(n, pm);
-
     }
 
     @Nullable
@@ -111,10 +106,6 @@ public class Parkour extends Game {
 
     public static void removeParkourPlayer(Player player, ParkourRun parkourRun) {
         parkourPlayers.remove(player, parkourRun);
-    }
-
-    public static HashMap<Player, ParkourRun> getAllParkourPlayers() {
-        return parkourPlayers;
     }
 
     public static ParkourRun getParkourRunInstance(Player player) {
