@@ -21,7 +21,7 @@ public class PlayerStatistics {
     public static final File DATAFILE = new File(Games.getPluginDataFolder(), "playerstats.yml");
     private static final DataWriter dataWriter = new DataWriter();
 
-    private static Games main = Games.getInstance();
+    private static final Games main = Games.getInstance();
 
     private static final HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
 
@@ -81,12 +81,6 @@ public class PlayerStatistics {
     public static GamePlayer getGamePlayer(Player player) {
 
         return gamePlayers.get(player.getUniqueId());
-
-    }
-
-    public static GamePlayer getGamePlayer(UUID uuid) {
-
-        return gamePlayers.get(uuid);
 
     }
 

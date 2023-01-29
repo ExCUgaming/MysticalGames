@@ -69,7 +69,7 @@ public class Parkour extends Game {
                     pm.createCheckpoint(Short.parseShort(keyc), dw.readLocationData(Parkour.DATAFILE, "parkours."+key+".checkpoints."+keyc+".blockloc"), dw.readLocationData(Parkour.DATAFILE, "parkours."+key+".checkpoints."+keyc+".tploc"),false));
         });
     }
-
+    
     static void registerParkourMap(ParkourMap pm, String n, Difficulty difficulty) {
         //registers the ParkourMap
 
