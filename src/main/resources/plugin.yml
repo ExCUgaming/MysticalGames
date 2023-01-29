@@ -4,6 +4,7 @@ main: com.mysticalsurvival.games.Games
 api-version: 1.19
 authors: [ Excu, OPCoder ]
 description: Games for MysticalSurvival
+softdepend: [ PlaceholderAPI]
 commands:
   parkouradmin:
     aliases: [ pa ]
