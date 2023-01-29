@@ -11,7 +11,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.UUID;
 
 public class ParkourRun extends Parkour {
     private final Games plugin = Games.getInstance();
