@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mysticalsurvival</groupId>
-    <artifactId>games</artifactId>
+    <artifactId>MysticalGames</artifactId>
     <version>1.1</version>
     <packaging>jar</packaging>
 
@@ -71,7 +71,7 @@
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <artifactId>spigot</artifactId>
             <version>1.19.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

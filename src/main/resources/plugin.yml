@@ -10,6 +10,8 @@ commands:
     aliases: [ pa ]
   leaveparkour:
     aliases: [ cancelparkour ]
+  resetparkour:
+    aliases: [ restartparkour ]
   parkours:
   mysticalgames:
     aliases: [ mg ]
